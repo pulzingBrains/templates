@@ -13,13 +13,13 @@ jobs:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: ${{ inputs.php-version }}
+            php-version: ${{ matrix.php-version }}
             coverage: none
 
         - name: Install composer dependencies
           uses: ramsey/composer-install@v2
           with:
-            dependency-versions: ${{ inputs.dependency-versions }}
+            dependency-versions: ${{ matrix.dependency-versions }}
 
         - name: Run PHPUnit
           run: vendor/bin/phpunit tests
