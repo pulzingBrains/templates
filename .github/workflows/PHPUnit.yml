@@ -1,7 +1,17 @@
 name: PHPUnit
 on: 
     workflow_call:
-    
+        inputs:
+            php-version:
+                default: "7.4"
+                required: false
+                type: string
+                
+            dependency-versions:
+                default: "latest"
+                required: false
+                type: string
+
 jobs:
     phpunit:
         name: PHPUnit
@@ -13,13 +23,13 @@ jobs:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: ${{ matrix.php-version }}
+            php-version: ${{ inputs.php-version }}
             coverage: none
 
         - name: Install composer dependencies
           uses: ramsey/composer-install@v2
           with:
-            dependency-versions: ${{ matrix.dependency-versions }}
+            dependency-versions: ${{ inputs.dependency-versions }}
 
         - name: Run PHPUnit
           run: vendor/bin/phpunit tests
